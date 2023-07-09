@@ -14,7 +14,7 @@ namespace NukeRoomRadiation
     {
         private static Plugin plugin;
         private static List<CoroutineHandle> Coroutines = new List<CoroutineHandle> { };
-        private static Dictionary<string, int> PeriodsInNuke = new Dictionary<string, int>();
+        private static Dictionary<string, int> SecondsInNuke = new Dictionary<string, int>();
         public EventHandlers(Plugin P) => plugin = P;
 
         public static void Scan()
@@ -26,7 +26,7 @@ namespace NukeRoomRadiation
                     if (CurPlayer.IsAlive && CurPlayer.Role.Team != Team.OtherAlive && CurPlayer.CurrentRoom.Type == RoomType.HczNuke && 
                         CurPlayer.Position.y > -800)
                     {
-                        if (PeriodsInNuke[CurPlayer.UserId]++ >= plugin.Config.RadiationDelay)
+                        if (SecondsInNuke[CurPlayer.UserId]++ >= plugin.Config.RadiationDelay)
                         {
                             float shields = CurPlayer.HumeShield + CurPlayer.ArtificialHealth;
                             CurPlayer.EnableEffect(EffectType.Burned, 1f);
@@ -38,7 +38,7 @@ namespace NukeRoomRadiation
                     }
                     else
                     {
-                        PeriodsInNuke[CurPlayer.UserId] = 0;
+                        SecondsInNuke[CurPlayer.UserId] = 0;
                     }
                 }
             }
@@ -73,7 +73,7 @@ namespace NukeRoomRadiation
 
         public void OnSpawned(SpawnedEventArgs ev)
         {
-            PeriodsInNuke[ev.Player.UserId] = 0;
+            SecondsInNuke[ev.Player.UserId] = 0;
         }
 
         public void OnDetonated()
