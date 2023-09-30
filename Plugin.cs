@@ -40,7 +40,7 @@ namespace NukeRoomRadiation
         public override string Name => "Nuke Room Radiation";
         public override string Author => "Nick";
         public override Version Version => new Version(1, 0, 0);
-        public override Version RequiredExiledVersion => new Version(7, 2, 0);
+        public override Version RequiredExiledVersion => new Version(8, 2, 1);
         public override PluginPriority Priority => PluginPriority.High;
     }
 }
